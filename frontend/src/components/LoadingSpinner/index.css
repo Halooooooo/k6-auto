@@ -1,0 +1,17 @@
+.loading-spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.loading-spinner-container .ant-spin {
+  max-height: none;
+}
+
+.loading-spinner-container .ant-spin-text {
+  margin-top: 12px;
+  color: #666;
+  font-size: 14px;
+}

@@ -1,0 +1,347 @@
+.script-editor {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.editor-header {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.editor-title {
+  margin: 0 !important;
+  color: #1890ff;
+}
+
+.back-button {
+  border-radius: 6px;
+}
+
+.editor-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.content-card {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content-card .ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 8px 8px 0 0;
+}
+
+.content-card .ant-card-head-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.info-card {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-card .ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 8px 8px 0 0;
+}
+
+.info-card .ant-card-head-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.script-textarea {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  transition: all 0.2s ease;
+}
+
+.script-textarea:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.script-preview {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  min-height: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.script-preview pre {
+  margin: 0;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.script-preview code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: #24292e;
+}
+
+.tags-section {
+  margin-top: 16px;
+}
+
+.tags-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #262626;
+}
+
+.tags-container {
+  margin-bottom: 12px;
+  min-height: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.tags-container .ant-tag {
+  margin: 0;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 4px 8px;
+  cursor: default;
+  transition: all 0.2s ease;
+}
+
+.tags-container .ant-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.add-tag {
+  margin-top: 8px;
+}
+
+.add-tag .ant-input {
+  border-radius: 4px;
+}
+
+/* 表单样式 */
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-input-number {
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.ant-input:focus,
+.ant-select-focused .ant-select-selector,
+.ant-input-number:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-switch {
+  border-radius: 12px;
+}
+
+/* 按钮样式 */
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+}
+
+/* 分割线样式 */
+.ant-divider {
+  margin: 16px 0;
+  border-color: #f0f0f0;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .editor-content .ant-col:first-child {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .script-editor {
+    padding: 16px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  
+  .header-actions {
+    width: 100%;
+  }
+  
+  .header-actions .ant-space {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .editor-content {
+    padding: 16px;
+  }
+  
+  .script-textarea {
+    font-size: 12px;
+  }
+  
+  .script-preview {
+    font-size: 12px;
+    min-height: 300px;
+    max-height: 300px;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme='dark'] .script-editor {
+  background: #141414;
+}
+
+[data-theme='dark'] .editor-header {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .editor-content {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .content-card,
+[data-theme='dark'] .info-card {
+  background: #262626;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .content-card .ant-card-head,
+[data-theme='dark'] .info-card .ant-card-head {
+  background: #303030;
+  border-bottom-color: #434343;
+}
+
+[data-theme='dark'] .content-card .ant-card-head-title,
+[data-theme='dark'] .info-card .ant-card-head-title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .script-preview {
+  background: #0d1117;
+  border-color: #30363d;
+}
+
+[data-theme='dark'] .script-preview code {
+  color: #c9d1d9;
+}
+
+[data-theme='dark'] .tags-label {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .ant-form-item-label > label {
+  color: #ffffff;
+}
+
+/* 动画效果 */
+.editor-header,
+.editor-content {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 滚动条样式 */
+.script-preview::-webkit-scrollbar {
+  width: 8px;
+}
+
+.script-preview::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.script-preview::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.script-preview::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+[data-theme='dark'] .script-preview::-webkit-scrollbar-track {
+  background: #2f2f2f;
+}
+
+[data-theme='dark'] .script-preview::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+[data-theme='dark'] .script-preview::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}

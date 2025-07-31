@@ -1,0 +1,380 @@
+.results-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.results-header-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-header-card .ant-card-body {
+  padding: 20px 24px;
+}
+
+.results-header-card h2 {
+  margin: 0;
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.results-stats-row {
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .ant-card-body {
+  padding: 16px;
+}
+
+.stat-card .ant-statistic {
+  text-align: center;
+}
+
+.stat-card .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.stat-card .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.results-filter-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-filter-card .ant-card-body {
+  padding: 20px 24px;
+}
+
+.results-table-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-table-card .ant-card-body {
+  padding: 0;
+}
+
+.results-table-card .ant-table {
+  border-radius: 8px;
+}
+
+.results-table-card .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 2px solid #e8e8e8;
+  font-weight: 600;
+  color: #333;
+  padding: 16px;
+}
+
+.results-table-card .ant-table-tbody > tr {
+  transition: all 0.3s ease;
+}
+
+.results-table-card .ant-table-tbody > tr:hover {
+  background: #f0f9ff;
+}
+
+.results-table-card .ant-table-tbody > tr > td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.result-name {
+  color: #1890ff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.result-name:hover {
+  color: #40a9ff;
+  text-decoration: underline;
+}
+
+.batch-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.selected-count {
+  color: #1890ff;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ant-progress {
+  margin: 0;
+}
+
+.ant-progress-text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+}
+
+.ant-btn-text {
+  color: #666;
+}
+
+.ant-btn-text:hover {
+  color: #1890ff;
+  background: #f0f9ff;
+}
+
+.ant-dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ant-dropdown-menu-item {
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: #f0f9ff;
+}
+
+.ant-dropdown-menu-item-danger:hover {
+  background: #fff2f0;
+}
+
+.ant-input {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ant-input:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-select {
+  border-radius: 6px;
+}
+
+.ant-select-selector {
+  border-radius: 6px !important;
+  transition: all 0.3s ease;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-picker {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ant-picker:hover {
+  border-color: #40a9ff;
+}
+
+.ant-picker-focused {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-pagination {
+  margin: 24px 0 0 0;
+  text-align: center;
+}
+
+.ant-pagination-item {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ant-pagination-item:hover {
+  border-color: #40a9ff;
+}
+
+.ant-pagination-item-active {
+  border-color: #1890ff;
+  background: #1890ff;
+}
+
+.ant-pagination-item-active a {
+  color: #fff;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .results-container {
+    padding: 16px;
+  }
+  
+  .results-header-card .ant-card-body,
+  .results-filter-card .ant-card-body {
+    padding: 16px;
+  }
+  
+  .batch-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .selected-count {
+    text-align: center;
+  }
+  
+  .ant-table {
+    font-size: 12px;
+  }
+  
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .results-container {
+    padding: 12px;
+  }
+  
+  .results-header-card h2 {
+    font-size: 20px;
+  }
+  
+  .stat-card .ant-statistic-content {
+    font-size: 20px;
+  }
+  
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 6px;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.results-container > * {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.results-container > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.results-container > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.results-container > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.results-container > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .results-container {
+    background: #141414;
+  }
+  
+  .results-header-card,
+  .results-filter-card,
+  .results-table-card,
+  .stat-card {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+  
+  .results-header-card h2 {
+    color: #1890ff;
+  }
+  
+  .ant-table-thead > tr > th {
+    background: #262626;
+    border-color: #303030;
+    color: #fff;
+  }
+  
+  .ant-table-tbody > tr:hover {
+    background: #262626;
+  }
+  
+  .ant-table-tbody > tr > td {
+    border-color: #303030;
+    color: #fff;
+  }
+  
+  .result-name {
+    color: #1890ff;
+  }
+  
+  .result-name:hover {
+    color: #40a9ff;
+  }
+  
+  .selected-count {
+    color: #1890ff;
+  }
+  
+  .ant-btn-text {
+    color: #d9d9d9;
+  }
+  
+  .ant-btn-text:hover {
+    color: #1890ff;
+    background: #111b26;
+  }
+  
+  .stat-card .ant-statistic-title {
+    color: #d9d9d9;
+  }
+}

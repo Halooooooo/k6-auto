@@ -1,0 +1,254 @@
+.dashboard-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: calc(100vh - 64px);
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+}
+
+.dashboard-header .ant-typography {
+  margin-bottom: 8px;
+}
+
+/* 统计卡片样式 */
+.stats-row {
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  border: none;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.stat-card .ant-statistic {
+  text-align: center;
+}
+
+.stat-card .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.stat-card .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.stat-card .ant-statistic-content-prefix {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+/* 进度卡片样式 */
+.progress-row {
+  margin-bottom: 24px;
+}
+
+.progress-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  height: 100%;
+}
+
+.progress-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.progress-card .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.progress-card .ant-progress {
+  margin-bottom: 16px;
+}
+
+.progress-card .ant-progress:last-child {
+  margin-bottom: 0;
+}
+
+/* 最近活动样式 */
+.recent-row {
+  margin-bottom: 24px;
+}
+
+.recent-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  height: 100%;
+}
+
+.recent-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.recent-card .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.recent-card .ant-card-extra {
+  padding: 0;
+}
+
+.recent-card .ant-table {
+  margin: -12px;
+}
+
+.recent-card .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+}
+
+.recent-card .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.recent-card .ant-table-tbody > tr:hover > td {
+  background: #fafafa;
+}
+
+.recent-card .ant-list-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.recent-card .ant-list-item:last-child {
+  border-bottom: none;
+}
+
+.recent-card .ant-list-item-meta-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.recent-card .ant-list-item-meta-description {
+  font-size: 12px;
+}
+
+/* 标签样式 */
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+  
+  .stats-row .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .progress-row .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .recent-row .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .stat-card .ant-statistic-content {
+    font-size: 20px;
+  }
+  
+  .recent-card .ant-table {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-header h2 {
+    font-size: 20px;
+  }
+  
+  .stat-card .ant-statistic-content {
+    font-size: 18px;
+  }
+  
+  .stat-card .ant-statistic-content-prefix {
+    font-size: 16px;
+  }
+}
+
+/* 动画效果 */
+.stat-card,
+.progress-card,
+.recent-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 暗色主题 */
+.dark .dashboard-container {
+  background: #141414;
+}
+
+.dark .stat-card,
+.dark .progress-card,
+.dark .recent-card {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+.dark .stat-card:hover,
+.dark .progress-card:hover,
+.dark .recent-card:hover {
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+}
+
+.dark .progress-card .ant-card-head,
+.dark .recent-card .ant-card-head {
+  border-bottom-color: #303030;
+}
+
+.dark .recent-card .ant-table-thead > tr > th {
+  background: #262626;
+  border-bottom-color: #303030;
+}
+
+.dark .recent-card .ant-table-tbody > tr > td {
+  border-bottom-color: #303030;
+}
+
+.dark .recent-card .ant-table-tbody > tr:hover > td {
+  background: #262626;
+}
+
+.dark .recent-card .ant-list-item {
+  border-bottom-color: #303030;
+}
+
+.dark .stat-card .ant-statistic-title {
+  color: #999;
+}

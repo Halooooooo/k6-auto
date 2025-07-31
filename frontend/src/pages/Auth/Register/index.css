@@ -1,0 +1,201 @@
+.register-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.register-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  z-index: 1;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.register-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+.register-card {
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.register-card .ant-card-body {
+  padding: 40px 32px;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.register-logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+}
+
+.register-title {
+  margin-bottom: 8px !important;
+  color: #1890ff;
+  font-weight: 700;
+}
+
+.register-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+.register-form {
+  margin-bottom: 24px;
+}
+
+.register-form .ant-form-item {
+  margin-bottom: 18px;
+}
+
+.register-form .ant-input-affix-wrapper,
+.register-form .ant-input {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s;
+}
+
+.register-form .ant-input-affix-wrapper:hover,
+.register-form .ant-input:hover {
+  border-color: #40a9ff;
+}
+
+.register-form .ant-input-affix-wrapper:focus,
+.register-form .ant-input-affix-wrapper-focused,
+.register-form .ant-input:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.register-button {
+  height: 48px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+  transition: all 0.3s;
+  margin-top: 8px;
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(24, 144, 255, 0.4);
+}
+
+.register-button:active {
+  transform: translateY(0);
+}
+
+.register-footer {
+  text-align: center;
+}
+
+.login-link .ant-btn {
+  color: #1890ff;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.login-link .ant-btn:hover {
+  color: #40a9ff;
+  background: rgba(24, 144, 255, 0.05);
+}
+
+/* 密码强度提示 */
+.register-form .ant-form-item-explain {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .register-content {
+    padding: 16px;
+  }
+  
+  .register-card .ant-card-body {
+    padding: 32px 24px;
+  }
+  
+  .register-logo {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .register-title {
+    font-size: 20px;
+  }
+  
+  .register-form .ant-form-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* 动画效果 */
+.register-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 暗色主题 */
+.dark .register-card {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .register-subtitle {
+  color: #999;
+}
+
+.dark .register-form .ant-input-affix-wrapper,
+.dark .register-form .ant-input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.dark .register-form .ant-input-affix-wrapper:hover,
+.dark .register-form .ant-input:hover {
+  border-color: #40a9ff;
+  background: rgba(255, 255, 255, 0.08);
+}

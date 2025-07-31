@@ -1,0 +1,288 @@
+.task-detail {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.task-detail-header {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.back-button {
+  margin-top: 8px;
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-title {
+  margin-bottom: 8px !important;
+  color: #1890ff;
+}
+
+.progress-container {
+  margin-top: 12px;
+  max-width: 300px;
+}
+
+.header-actions {
+  margin-top: 8px;
+}
+
+.task-detail-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-detail-content .ant-tabs {
+  padding: 0;
+}
+
+.task-detail-content .ant-tabs-nav {
+  margin: 0;
+  padding: 0 24px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.task-detail-content .ant-tabs-content-holder {
+  padding: 24px;
+}
+
+.result-content {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 0;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.result-content code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: #24292e;
+}
+
+.no-result {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.task-detail-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.task-detail-error {
+  text-align: center;
+  padding: 100px 0;
+}
+
+/* 表格样式 */
+.ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f5f5f5;
+}
+
+/* 描述列表样式 */
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+/* 进度条样式 */
+.ant-progress {
+  margin: 0;
+}
+
+.ant-progress-line {
+  margin-bottom: 0;
+}
+
+.ant-progress-text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 标签样式 */
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 8px;
+  font-weight: 500;
+}
+
+/* 按钮样式 */
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .task-detail {
+    padding: 16px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .header-left {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .header-actions {
+    margin-top: 0;
+    width: 100%;
+  }
+  
+  .header-actions .ant-space {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .task-detail-content .ant-tabs-content-holder {
+    padding: 16px;
+  }
+  
+  .progress-container {
+    max-width: 100%;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme='dark'] .task-detail {
+  background: #141414;
+}
+
+[data-theme='dark'] .task-detail-header {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .task-detail-content {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .task-detail-content .ant-tabs-nav {
+  background: #262626;
+  border-bottom-color: #303030;
+}
+
+[data-theme='dark'] .result-content {
+  background: #0d1117;
+  border-color: #30363d;
+}
+
+[data-theme='dark'] .result-content code {
+  color: #c9d1d9;
+}
+
+[data-theme='dark'] .ant-table-thead > tr > th {
+  background: #262626;
+  border-bottom-color: #303030;
+}
+
+[data-theme='dark'] .ant-descriptions-bordered .ant-descriptions-item-label {
+  background: #262626;
+}
+
+/* 动画效果 */
+.task-detail-header,
+.task-detail-content {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 滚动条样式 */
+.result-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.result-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.result-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.result-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+[data-theme='dark'] .result-content::-webkit-scrollbar-track {
+  background: #2f2f2f;
+}
+
+[data-theme='dark'] .result-content::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+[data-theme='dark'] .result-content::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}

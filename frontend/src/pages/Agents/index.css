@@ -1,0 +1,456 @@
+.agents-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: calc(100vh - 64px);
+}
+
+.agents-header-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.agents-header-card .ant-card-body {
+  padding: 20px 24px;
+}
+
+.agents-header-card h2 {
+  margin: 0;
+  color: #1890ff;
+}
+
+/* 统计卡片样式 */
+.agents-stats-row {
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  border: none;
+  text-align: center;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.stat-card .ant-statistic {
+  padding: 8px 0;
+}
+
+.stat-card .ant-statistic-title {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.stat-card .ant-statistic-content {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.stat-card .ant-statistic-content-prefix {
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.agents-filter-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.agents-filter-card .ant-card-body {
+  padding: 20px 24px;
+}
+
+.agents-table-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.agents-table-card .ant-card-body {
+  padding: 0;
+}
+
+/* 表格样式 */
+.agents-table-card .ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.agents-table-card .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+  color: #262626;
+}
+
+.agents-table-card .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.agents-table-card .ant-table-tbody > tr:hover > td {
+  background: #fafafa;
+}
+
+/* Agent名称样式 */
+.agent-name {
+  color: #1890ff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.agent-name:hover {
+  color: #40a9ff;
+  text-decoration: underline;
+}
+
+/* 操作按钮样式 */
+.agents-table-card .ant-btn {
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s;
+}
+
+.agents-table-card .ant-btn:hover {
+  background: #f0f0f0;
+  transform: scale(1.1);
+}
+
+.agents-table-card .ant-btn.ant-btn-dangerous:hover {
+  background: #fff2f0;
+  color: #ff4d4f;
+}
+
+/* 标签和徽章样式 */
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 8px;
+  border: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ant-badge {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 进度条样式 */
+.agents-table-card .ant-progress {
+  margin: 0;
+}
+
+.agents-table-card .ant-progress-line {
+  width: 80px;
+}
+
+.agents-table-card .ant-progress-text {
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+/* 批量操作样式 */
+.batch-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.selected-count {
+  color: #1890ff;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.batch-actions .ant-btn {
+  border-radius: 6px;
+  font-size: 12px;
+  height: 28px;
+  padding: 0 12px;
+}
+
+/* 搜索框样式 */
+.agents-filter-card .ant-input-search {
+  border-radius: 6px;
+}
+
+.agents-filter-card .ant-input-search .ant-input {
+  border-radius: 6px 0 0 6px;
+}
+
+.agents-filter-card .ant-input-search .ant-input-search-button {
+  border-radius: 0 6px 6px 0;
+}
+
+/* 选择器样式 */
+.agents-filter-card .ant-select {
+  border-radius: 6px;
+}
+
+.agents-filter-card .ant-select .ant-select-selector {
+  border-radius: 6px;
+}
+
+/* 下拉菜单样式 */
+.ant-dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.ant-dropdown-menu-item {
+  padding: 8px 12px;
+  transition: all 0.3s;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: #f0f0f0;
+}
+
+.ant-dropdown-menu-item-danger:hover {
+  background: #fff2f0;
+  color: #ff4d4f;
+}
+
+/* 分页样式 */
+.agents-table-card .ant-pagination {
+  margin: 16px;
+  text-align: right;
+}
+
+.agents-table-card .ant-pagination .ant-pagination-total-text {
+  color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .agents-container {
+    padding: 16px;
+  }
+  
+  .agents-header-card .ant-card-body,
+  .agents-filter-card .ant-card-body {
+    padding: 16px;
+  }
+  
+  .agents-header-card .ant-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .agents-header-card .ant-col:last-child {
+    text-align: left;
+  }
+  
+  .stat-card .ant-statistic-content {
+    font-size: 16px;
+  }
+  
+  .stat-card .ant-statistic-content-prefix {
+    font-size: 14px;
+  }
+  
+  .agents-table-card .ant-table {
+    font-size: 12px;
+  }
+  
+  .agents-table-card .ant-table-thead > tr > th,
+  .agents-table-card .ant-table-tbody > tr > td {
+    padding: 8px 4px;
+  }
+  
+  .agents-table-card .ant-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .agents-table-card .ant-progress-line {
+    width: 60px;
+  }
+  
+  .batch-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .agents-header-card h2 {
+    font-size: 18px;
+  }
+  
+  .agents-filter-card .ant-row {
+    flex-direction: column;
+  }
+  
+  .agents-filter-card .ant-col {
+    width: 100% !important;
+    margin-bottom: 8px;
+  }
+  
+  .agents-filter-card .ant-col:last-child {
+    margin-bottom: 0;
+  }
+  
+  .stat-card .ant-statistic-content {
+    font-size: 14px;
+  }
+  
+  /* 隐藏部分列在小屏幕上 */
+  .agents-table-card .ant-table-thead > tr > th:nth-child(5),
+  .agents-table-card .ant-table-tbody > tr > td:nth-child(5),
+  .agents-table-card .ant-table-thead > tr > th:nth-child(6),
+  .agents-table-card .ant-table-tbody > tr > td:nth-child(6),
+  .agents-table-card .ant-table-thead > tr > th:nth-child(7),
+  .agents-table-card .ant-table-tbody > tr > td:nth-child(7),
+  .agents-table-card .ant-table-thead > tr > th:nth-child(8),
+  .agents-table-card .ant-table-tbody > tr > td:nth-child(8) {
+    display: none;
+  }
+}
+
+/* 动画效果 */
+.agents-header-card,
+.agents-stats-row .stat-card,
+.agents-filter-card,
+.agents-table-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 状态指示器动画 */
+.ant-badge-status-processing {
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 暗色主题 */
+.dark .agents-container {
+  background: #141414;
+}
+
+.dark .agents-header-card,
+.dark .stat-card,
+.dark .agents-filter-card,
+.dark .agents-table-card {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+.dark .agents-header-card h2 {
+  color: #1890ff;
+}
+
+.dark .stat-card .ant-statistic-title {
+  color: #999;
+}
+
+.dark .agents-table-card .ant-table-thead > tr > th {
+  background: #262626;
+  border-bottom-color: #303030;
+  color: #fff;
+}
+
+.dark .agents-table-card .ant-table-tbody > tr > td {
+  border-bottom-color: #303030;
+  color: #fff;
+}
+
+.dark .agents-table-card .ant-table-tbody > tr:hover > td {
+  background: #262626;
+}
+
+.dark .agent-name {
+  color: #1890ff;
+}
+
+.dark .agent-name:hover {
+  color: #40a9ff;
+}
+
+.dark .agents-table-card .ant-btn:hover {
+  background: #262626;
+}
+
+.dark .agents-table-card .ant-btn.ant-btn-dangerous:hover {
+  background: #2a1215;
+  color: #ff4d4f;
+}
+
+.dark .agents-filter-card .ant-input,
+.dark .agents-filter-card .ant-select .ant-select-selector {
+  background: #262626;
+  border-color: #434343;
+  color: #fff;
+}
+
+.dark .agents-filter-card .ant-input:hover,
+.dark .agents-filter-card .ant-select .ant-select-selector:hover {
+  border-color: #1890ff;
+}
+
+.dark .agents-filter-card .ant-input:focus,
+.dark .agents-filter-card .ant-select .ant-select-selector:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.dark .ant-dropdown-menu {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+.dark .ant-dropdown-menu-item {
+  color: #fff;
+}
+
+.dark .ant-dropdown-menu-item:hover {
+  background: #262626;
+}
+
+.dark .ant-dropdown-menu-item-danger:hover {
+  background: #2a1215;
+  color: #ff4d4f;
+}
+
+.dark .selected-count {
+  color: #1890ff;
+}

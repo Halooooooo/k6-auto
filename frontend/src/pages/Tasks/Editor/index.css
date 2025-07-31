@@ -1,0 +1,349 @@
+.task-editor {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.editor-header {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.editor-title {
+  margin: 0 !important;
+  color: #1890ff;
+}
+
+.back-button {
+  border-radius: 6px;
+}
+
+.editor-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.config-card {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.config-card .ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 8px 8px 0 0;
+}
+
+.config-card .ant-card-head-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.schedule-card {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-card .ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 8px 8px 0 0;
+}
+
+.schedule-card .ant-card-head-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.schedule-section {
+  margin-top: 16px;
+}
+
+.schedule-header {
+  margin-bottom: 16px;
+}
+
+.schedule-header .ant-checkbox-wrapper {
+  font-weight: 500;
+  color: #262626;
+}
+
+.schedule-config {
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #f0f0f0;
+}
+
+/* 表单样式 */
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-input-number,
+.ant-picker {
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.ant-input:focus,
+.ant-select-focused .ant-select-selector,
+.ant-input-number:focus,
+.ant-picker:focus,
+.ant-picker-focused {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-input-number {
+  width: 100%;
+}
+
+.ant-switch {
+  border-radius: 12px;
+}
+
+.ant-checkbox-wrapper {
+  font-size: 14px;
+}
+
+/* 按钮样式 */
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+}
+
+/* 分割线样式 */
+.ant-divider {
+  margin: 16px 0;
+  border-color: #f0f0f0;
+}
+
+.ant-divider-horizontal.ant-divider-with-text-left {
+  font-weight: 600;
+  color: #262626;
+}
+
+/* 文本域样式 */
+.ant-input {
+  font-family: inherit;
+}
+
+.ant-input[placeholder*="JSON"] {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* 选择器样式 */
+.ant-select-dropdown {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ant-select-item {
+  border-radius: 4px;
+  margin: 2px 4px;
+}
+
+.ant-select-item-option-selected {
+  background: #e6f7ff;
+  font-weight: 500;
+}
+
+/* 日期选择器样式 */
+.ant-picker-dropdown {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ant-picker-panel {
+  border-radius: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .editor-content .ant-col:first-child {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-editor {
+    padding: 16px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  
+  .header-actions {
+    width: 100%;
+  }
+  
+  .header-actions .ant-space {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .editor-content {
+    padding: 16px;
+  }
+  
+  .schedule-config {
+    padding: 12px;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme='dark'] .task-editor {
+  background: #141414;
+}
+
+[data-theme='dark'] .editor-header {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .editor-content {
+  background: #1f1f1f;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .config-card,
+[data-theme='dark'] .schedule-card {
+  background: #262626;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .config-card .ant-card-head,
+[data-theme='dark'] .schedule-card .ant-card-head {
+  background: #303030;
+  border-bottom-color: #434343;
+}
+
+[data-theme='dark'] .config-card .ant-card-head-title,
+[data-theme='dark'] .schedule-card .ant-card-head-title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .schedule-config {
+  background: #1a1a1a;
+  border-color: #303030;
+}
+
+[data-theme='dark'] .schedule-header .ant-checkbox-wrapper {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .ant-form-item-label > label {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .ant-divider-horizontal.ant-divider-with-text-left {
+  color: #ffffff;
+}
+
+/* 动画效果 */
+.editor-header,
+.editor-content {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.schedule-config {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 输入框组合样式 */
+.ant-input-group {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ant-input-group .ant-input {
+  border-radius: 0;
+}
+
+.ant-input-group .ant-input:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.ant-input-group .ant-input:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+/* 数字输入框样式 */
+.ant-input-number-handler-wrap {
+  border-radius: 0 6px 6px 0;
+}
+
+.ant-input-number-handler {
+  border-radius: 0;
+}
+
+.ant-input-number-handler:first-child {
+  border-radius: 0 6px 0 0;
+}
+
+.ant-input-number-handler:last-child {
+  border-radius: 0 0 6px 0;
+}
