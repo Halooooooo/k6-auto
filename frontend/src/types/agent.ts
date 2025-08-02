@@ -2,7 +2,7 @@ export interface Agent {
   id: string
   name: string
   hostname: string
-  ip: string
+  ipAddress: string
   port: number
   status: AgentStatus
   description?: string
@@ -40,7 +40,7 @@ export interface AgentResources {
 export interface CreateAgentDto {
   name: string
   hostname: string
-  ip: string
+  ipAddress: string
   port: number
   description?: string
   tags?: string[]

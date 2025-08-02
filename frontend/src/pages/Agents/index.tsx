@@ -320,8 +320,8 @@ const Agents: React.FC = () => {
     },
     {
       title: 'IP地址',
-      dataIndex: 'host',
-      key: 'host'
+      dataIndex: 'ipAddress',
+      key: 'ipAddress'
     },
     {
       title: '端口',

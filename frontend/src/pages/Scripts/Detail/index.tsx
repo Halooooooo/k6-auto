@@ -42,7 +42,7 @@ interface Script {
   status: 'active' | 'inactive'
   createdAt: string
   updatedAt: string
-  author: string
+  author: string | { username?: string; name?: string; [key: string]: any }
   version: string
   tags: string[]
 }
@@ -211,7 +211,7 @@ const ScriptDetail: React.FC = () => {
                   {script.status === 'active' ? '活跃' : '非活跃'}
                 </Tag>
                 <Text type="secondary">版本 {script.version}</Text>
-                <Text type="secondary">作者: {script.author}</Text>
+                <Text type="secondary">作者: {typeof script.author === 'object' ? script.author?.username || script.author?.name || '未知' : script.author}</Text>
               </Space>
             </div>
           </div>
@@ -255,7 +255,7 @@ const ScriptDetail: React.FC = () => {
                   </Tag>
                 </Descriptions.Item>
                 <Descriptions.Item label="版本">{script.version}</Descriptions.Item>
-                <Descriptions.Item label="作者">{script.author}</Descriptions.Item>
+                <Descriptions.Item label="作者">{typeof script.author === 'object' ? script.author?.username || script.author?.name || '未知' : script.author}</Descriptions.Item>
                 <Descriptions.Item label="创建时间">
                   {new Date(script.createdAt).toLocaleString()}
                 </Descriptions.Item>

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { App } from 'antd'
+import { STORAGE_KEYS } from '../constants'
 
 // 消息实例，将在App组件中设置
 let messageApi: any = null
@@ -21,7 +22,7 @@ export const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 添加认证token
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem(STORAGE_KEYS.TOKEN)
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -44,8 +45,8 @@ apiClient.interceptors.request.use(
 // 响应拦截器
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
-    // 检查业务状态码
-    if (response.data && !response.data.success) {
+    // 检查业务状态码 - 只有当明确返回success: false时才认为是业务错误
+    if (response.data && response.data.success === false) {
       const errorMessage = response.data.message || '请求失败'
       if (messageApi) {
         messageApi.error(errorMessage)
@@ -68,10 +69,15 @@ apiClient.interceptors.response.use(
     const { status, data } = error.response
 
     switch (status) {
+      case 400:
+        // 请求参数错误
+        const badRequestMessage = data?.message || '请求参数错误'
+        return Promise.reject(new Error(badRequestMessage))
       case 401:
-        // 未授权，清除token并跳转到登录页
-        localStorage.removeItem('token')
-        window.location.href = '/login'
+        // 未授权，清除token并通过Redux处理登出
+        localStorage.removeItem(STORAGE_KEYS.TOKEN)
+        // 通过自定义事件通知应用处理登出
+        window.dispatchEvent(new CustomEvent('auth:logout'))
         if (messageApi) {
           messageApi.error('登录已过期，请重新登录')
         }
@@ -86,6 +92,10 @@ apiClient.interceptors.response.use(
           messageApi.error('请求的资源不存在')
         }
         break
+      case 409:
+        // 资源冲突，如脚本名称已存在
+        const conflictMessage = data?.message || '资源冲突'
+        return Promise.reject(new Error(conflictMessage))
       case 422:
         // 表单验证错误
         if (data.errors && Array.isArray(data.errors)) {
@@ -139,7 +149,7 @@ export const uploadClient: AxiosInstance = axios.create({
 // 为上传客户端添加相同的拦截器
 uploadClient.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem(STORAGE_KEYS.TOKEN)
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -152,8 +162,8 @@ uploadClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token')
-      window.location.href = '/login'
+      localStorage.removeItem(STORAGE_KEYS.TOKEN)
+      window.dispatchEvent(new CustomEvent('auth:logout'))
     }
     return Promise.reject(error)
   }

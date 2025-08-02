@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  k6-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: k6-agent
+    ports:
+      - "8080:8080"  # HTTP API端口
+      - "9090:9090"  # 监控指标端口
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8080
+      - BACKEND_URL=http://host.docker.internal:3001
+      - LOG_LEVEL=info
+      - K6_BINARY=k6
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./logs:/app/logs
+      - /tmp:/app/temp
+    restart: unless-stopped
+    networks:
+      - k6-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+  # 可选：添加多个Agent实例进行负载均衡
+  k6-agent-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: k6-agent-2
+    ports:
+      - "8081:8080"
+      - "9091:9090"
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8080
+      - BACKEND_URL=http://host.docker.internal:3001
+      - LOG_LEVEL=info
+      - K6_BINARY=k6
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./logs:/app/logs
+      - /tmp:/app/temp
+    restart: unless-stopped
+    networks:
+      - k6-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    profiles:
+      - multi-agent  # 使用 --profile multi-agent 启动多实例
+
+  # 可选：Nginx负载均衡器
+  nginx:
+    image: nginx:alpine
+    container_name: k6-agent-lb
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - k6-agent
+      - k6-agent-2
+    restart: unless-stopped
+    networks:
+      - k6-network
+    profiles:
+      - load-balancer
+
+networks:
+  k6-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  agent-logs:
+    driver: local

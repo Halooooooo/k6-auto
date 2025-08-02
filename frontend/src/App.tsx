@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import zhCN from 'antd/locale/zh_CN'
 import { store } from './store'
 import { useAppSelector, useAppDispatch } from './store/hooks'
-import { getCurrentUser } from './store/slices/authSlice'
+import { getCurrentUser, logout } from './store/slices/authSlice'
 import { setMessageApi } from './services/apiClient'
 import Layout from './components/Layout'
 import Login from './pages/Auth/Login'
@@ -58,10 +58,21 @@ const AppContent: React.FC = () => {
   const isDarkMode = localStorage.getItem(STORAGE_KEYS.THEME) === 'dark'
   
   useEffect(() => {
-    // 检查本地存储中的token，如果存在则尝试获取用户信息
+    // 检查本地存储中的token，如果存在且Redux中没有用户信息则尝试获取用户信息
     const token = localStorage.getItem(STORAGE_KEYS.TOKEN)
-    if (token && !user) {
+    if (token && !user && !loading) {
       dispatch(getCurrentUser())
+    }
+
+    // 监听401错误导致的登出事件
+    const handleAuthLogout = () => {
+      dispatch(logout())
+    }
+
+    window.addEventListener('auth:logout', handleAuthLogout)
+
+    return () => {
+      window.removeEventListener('auth:logout', handleAuthLogout)
     }
   }, [dispatch, user])
   

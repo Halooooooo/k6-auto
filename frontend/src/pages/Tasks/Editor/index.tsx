@@ -24,7 +24,7 @@ import {
   SettingOutlined,
   ClockCircleOutlined
 } from '@ant-design/icons'
-import { taskService, scriptService } from '../../../services'
+import { taskService, scriptService, agentService } from '../../../services'
 import dayjs from 'dayjs'
 import './index.css'
 
@@ -69,6 +69,7 @@ const TaskEditor: React.FC = () => {
   const [saving, setSaving] = useState(false)
   const [task, setTask] = useState<Task | null>(null)
   const [scripts, setScripts] = useState<Script[]>([])
+  const [agents, setAgents] = useState<any[]>([])
   const [scheduleEnabled, setScheduleEnabled] = useState(false)
   const [scheduleType, setScheduleType] = useState<'once' | 'recurring'>('once')
 
@@ -76,11 +77,13 @@ const TaskEditor: React.FC = () => {
 
   useEffect(() => {
     fetchScripts()
+    fetchAgents()
     if (isEdit) {
       fetchTask()
     } else {
       // 新建任务的默认值
       form.setFieldsValue({
+        triggerType: 'manual',
         config: {
           vus: 10,
           duration: '30s',
@@ -94,9 +97,18 @@ const TaskEditor: React.FC = () => {
   const fetchScripts = async () => {
     try {
       const response = await scriptService.getScripts()
-      setScripts(response.data.items || [])
+      setScripts(response.data || [])
     } catch (error) {
       message.error('获取脚本列表失败')
+    }
+  }
+
+  const fetchAgents = async () => {
+    try {
+      const response = await agentService.getAgents()
+      setAgents(response.data || [])
+    } catch (error) {
+      message.error('获取Agent列表失败')
     }
   }
 
@@ -133,6 +145,7 @@ const TaskEditor: React.FC = () => {
       
       const taskData = {
         ...values,
+        status: isEdit ? undefined : 'pending', // 新建任务默认状态为等待中
         config: {
           ...values.config,
           parameters: values.config.parameters ? JSON.parse(values.config.parameters) : {},
@@ -155,10 +168,10 @@ const TaskEditor: React.FC = () => {
       } else {
         const response = await taskService.createTask(taskData)
         message.success('任务创建成功')
-        navigate(`/tasks/${response.data.id}`)
+        navigate(`/tasks/${response.id}`)
       }
-    } catch (error) {
-      message.error(isEdit ? '任务更新失败' : '任务创建失败')
+    } catch (error: any) {
+      message.error(isEdit ? '任务更新失败: ' + (error.message || '未知错误') : '任务创建失败: ' + (error.message || '未知错误'))
     } finally {
       setSaving(false)
     }
@@ -266,6 +279,23 @@ const TaskEditor: React.FC = () => {
                   <TextArea rows={3} placeholder="输入任务描述" />
                 </Form.Item>
                 
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="triggerType"
+                      label="触发类型"
+                      rules={[{ required: true, message: '请选择触发类型' }]}
+                    >
+                      <Select placeholder="选择触发类型">
+                        <Option value="manual">手动触发</Option>
+                        <Option value="scheduled">定时触发</Option>
+                        <Option value="api">API触发</Option>
+                        <Option value="chat">聊天触发</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                
                 <Divider orientation="left">执行配置</Divider>
                 
                 <Row gutter={16}>
@@ -298,6 +328,25 @@ const TaskEditor: React.FC = () => {
                         <Option value="testing">测试环境</Option>
                         <Option value="staging">预发布环境</Option>
                         <Option value="production">生产环境</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="agentId"
+                      label="执行Agent"
+                      rules={[{ required: true, message: '请选择执行Agent' }]}
+                    >
+                      <Select placeholder="选择Agent">
+                        <Option value="">平台服务器</Option>
+                        {agents.map(agent => (
+                          <Option key={agent.id} value={agent.id}>
+                            {agent.name} ({agent.hostname})
+                          </Option>
+                        ))}
                       </Select>
                     </Form.Item>
                   </Col>

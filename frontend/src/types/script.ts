@@ -25,7 +25,9 @@ export interface Script {
   updatedAt: string
 }
 
-export type ScriptType = 'load' | 'stress' | 'spike' | 'volume' | 'endurance' | 'api' | 'browser'
+export type ScriptType = 'load_test' | 'stress_test' | 'spike_test' | 'volume_test' | 'endurance_test'
+
+export type ScriptStatus = 'active' | 'inactive' | 'draft'
 
 export interface CreateScriptDto {
   name: string

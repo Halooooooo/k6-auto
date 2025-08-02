@@ -94,11 +94,11 @@ const VersionHistory: React.FC<VersionHistoryProps> = ({
   const handleSetActive = async (versionId: string) => {
     try {
       await scriptService.setActiveVersion(scriptId, versionId);
-      message.success('版本切换成功');
+      message.success('设置当前版本成功');
       fetchVersionHistory();
       onVersionRestore?.();
     } catch (error) {
-      message.error('版本切换失败');
+      message.error('设置当前版本失败');
     }
   };
 
@@ -111,6 +111,8 @@ const VersionHistory: React.FC<VersionHistoryProps> = ({
       message.error('版本删除失败');
     }
   };
+
+
 
   return (
     <>

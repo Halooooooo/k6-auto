@@ -25,7 +25,8 @@ export class TasksService {
     const { page = 1, limit = 10, status, scriptId } = queryDto;
     const queryBuilder = this.taskRepository.createQueryBuilder('task')
       .leftJoinAndSelect('task.script', 'script')
-      .leftJoinAndSelect('task.results', 'results');
+      .leftJoinAndSelect('task.results', 'results')
+      .leftJoinAndSelect('task.agent', 'agent');
 
     // 非管理员只能查看自己的任务
     if (user.role !== 'admin') {
@@ -53,6 +54,7 @@ export class TasksService {
     const queryBuilder = this.taskRepository.createQueryBuilder('task')
       .leftJoinAndSelect('task.script', 'script')
       .leftJoinAndSelect('task.results', 'results')
+      .leftJoinAndSelect('task.agent', 'agent')
       .where('task.id = :id', { id });
 
     // 非管理员只能查看自己的任务

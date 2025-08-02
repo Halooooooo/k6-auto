@@ -7,10 +7,10 @@ export interface Task {
   config: TaskConfig
   cronExpression?: string
   isEnabled: boolean
-  scheduledTime?: string
-  startTime?: string
-  endTime?: string
-  error?: string
+  scheduledAt?: string
+  startedAt?: string
+  completedAt?: string
+  errorMessage?: string
   logs?: string[]
   scriptId: string
   script?: {
@@ -18,8 +18,8 @@ export interface Task {
     name: string
     type: string
   }
-  userId: string
-  user?: {
+  creatorId: string
+  creator?: {
     id: string
     username: string
   }
@@ -29,11 +29,12 @@ export interface Task {
     name: string
     hostname: string
   }
+  results?: any[]
   createdAt: string
   updatedAt: string
 }
 
-export type TaskStatus = 'pending' | 'running' | 'completed' | 'failed' | 'cancelled'
+export type TaskStatus = 'pending' | 'running' | 'success' | 'failed' | 'cancelled'
 export type TriggerType = 'manual' | 'scheduled' | 'api' | 'chat'
 
 export interface TaskConfig {
@@ -85,7 +86,7 @@ export interface QueryTaskDto {
   isEnabled?: boolean
   startDate?: string
   endDate?: string
-  sortBy?: 'name' | 'createdAt' | 'updatedAt' | 'startTime' | 'endTime'
+  sortBy?: 'name' | 'createdAt' | 'updatedAt' | 'startedAt' | 'completedAt'
   sortOrder?: 'asc' | 'desc'
 }
 
@@ -98,7 +99,7 @@ export interface ExecuteTaskDto {
 export interface TaskStatistics {
   total: number
   running: number
-  completed: number
+  success: number
   failed: number
   cancelled: number
   byStatus: Record<TaskStatus, number>
@@ -112,12 +113,19 @@ export interface TaskExecution {
   id: string
   taskId: string
   status: TaskStatus
+  triggerType: TriggerType
   startTime: string
   endTime?: string
   duration?: number
   agentId?: string
   error?: string
-  logs: string[]
+  logs?: string
+  summary?: {
+    avgResponseTime: number
+    errorRate: number
+    totalRequests: number
+    requestsPerSecond: number
+  }
   createdAt: string
 }
 

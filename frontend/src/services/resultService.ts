@@ -5,14 +5,14 @@ import { apiClient } from './apiClient'
 export const resultService = {
   // 获取测试结果列表
   async getResults(params: QueryResultDto): Promise<ResultListResponse> {
-    const response = await apiClient.get<ApiResponse<ResultListResponse>>('/results', { params })
-    return response.data.data
+    const response = await apiClient.get<ResultListResponse>('/results', { params })
+    return response.data
   },
 
   // 根据ID获取测试结果详情
   async getResultById(id: string): Promise<Result> {
-    const response = await apiClient.get<ApiResponse<Result>>(`/results/${id}`)
-    return response.data.data
+    const response = await apiClient.get<Result>(`/results/${id}`)
+    return response.data
   },
 
   // 删除测试结果
@@ -28,8 +28,8 @@ export const resultService = {
     startDate?: string
     endDate?: string
   }): Promise<ResultStatistics> {
-    const response = await apiClient.get<ApiResponse<ResultStatistics>>('/results/statistics', { params })
-    return response.data.data
+    const response = await apiClient.get<ResultStatistics>('/results/statistics', { params })
+    return response.data
   },
 
   // 下载测试报告
@@ -43,8 +43,8 @@ export const resultService = {
 
   // 获取测试结果原始数据
   async getRawData(id: string): Promise<any> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/${id}/raw`)
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/${id}/raw`)
+    return response.data
   },
 
   // 获取测试结果指标数据
@@ -59,8 +59,8 @@ export const resultService = {
       tags?: Record<string, string>
     }>
   }> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/${id}/metrics`, { params })
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/${id}/metrics`, { params })
+    return response.data
   },
 
   // 获取测试结果日志
@@ -78,8 +78,8 @@ export const resultService = {
     }>
     total: number
   }> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/${id}/logs`, { params })
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/${id}/logs`, { params })
+    return response.data
   },
 
   // 获取测试结果截图
@@ -88,26 +88,26 @@ export const resultService = {
     url: string
     description?: string
   }>> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/${id}/screenshots`)
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/${id}/screenshots`)
+    return response.data
   },
 
   // 比较测试结果
   async compareResults(baselineId: string, comparisonId: string): Promise<ResultComparison> {
-    const response = await apiClient.post<ApiResponse<ResultComparison>>('/results/compare', {
+    const response = await apiClient.post<ResultComparison>('/results/compare', {
       baselineId,
       comparisonId
     })
-    return response.data.data
+    return response.data
   },
 
   // 批量比较测试结果
   async batchCompare(baselineId: string, comparisonIds: string[]): Promise<ResultComparison[]> {
-    const response = await apiClient.post<ApiResponse<ResultComparison[]>>('/results/batch-compare', {
+    const response = await apiClient.post<ResultComparison[]>('/results/batch-compare', {
       baselineId,
       comparisonIds
     })
-    return response.data.data
+    return response.data
   },
 
   // 获取趋势分析数据
@@ -133,8 +133,8 @@ export const resultService = {
       trendPercent: number
     }
   }> {
-    const response = await apiClient.get<ApiResponse<any>>('/results/trend', { params })
-    return response.data.data
+    const response = await apiClient.get<any>('/results/trend', { params })
+    return response.data
   },
 
   // 获取性能基线
@@ -146,8 +146,8 @@ export const resultService = {
     createdAt: string
     updatedAt: string
   } | null> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/baseline/${scriptId}`)
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/baseline/${scriptId}`)
+    return response.data
   },
 
   // 设置性能基线
@@ -171,8 +171,8 @@ export const resultService = {
     severity: 'low' | 'medium' | 'high'
     description: string
   }>> {
-    const response = await apiClient.get<ApiResponse<any>>('/results/anomalies', { params })
-    return response.data.data
+    const response = await apiClient.get<any>('/results/anomalies', { params })
+    return response.data
   },
 
   // 获取测试结果摘要
@@ -203,8 +203,8 @@ export const resultService = {
       examples: string[]
     }>
   }> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/${id}/summary`)
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/${id}/summary`)
+    return response.data
   },
 
   // 批量删除测试结果
@@ -222,20 +222,20 @@ export const resultService = {
 
   // 获取测试结果标签
   async getTags(): Promise<string[]> {
-    const response = await apiClient.get<ApiResponse<string[]>>('/results/tags')
-    return response.data.data
+    const response = await apiClient.get<string[]>('/results/tags')
+    return response.data
   },
 
   // 添加测试结果标签
   async addTags(id: string, tags: string[]): Promise<Result> {
-    const response = await apiClient.post<ApiResponse<Result>>(`/results/${id}/tags`, { tags })
-    return response.data.data
+    const response = await apiClient.post<Result>(`/results/${id}/tags`, { tags })
+    return response.data
   },
 
   // 移除测试结果标签
   async removeTags(id: string, tags: string[]): Promise<Result> {
-    const response = await apiClient.delete<ApiResponse<Result>>(`/results/${id}/tags`, { data: { tags } })
-    return response.data.data
+    const response = await apiClient.delete<Result>(`/results/${id}/tags`, { data: { tags } })
+    return response.data
   },
 
   // 获取测试结果评论
@@ -247,8 +247,8 @@ export const resultService = {
     createdAt: string
     updatedAt: string
   }>> {
-    const response = await apiClient.get<ApiResponse<any>>(`/results/${id}/comments`)
-    return response.data.data
+    const response = await apiClient.get<any>(`/results/${id}/comments`)
+    return response.data
   },
 
   // 添加测试结果评论
@@ -271,15 +271,15 @@ export const resultService = {
     url: string
     expiresAt: string
   }> {
-    const response = await apiClient.post<ApiResponse<any>>(`/results/${id}/share`, options)
-    return response.data.data
+    const response = await apiClient.post<any>(`/results/${id}/share`, options)
+    return response.data
   },
 
   // 通过分享链接访问测试结果
   async getSharedResult(shareId: string, password?: string): Promise<Result> {
-    const response = await apiClient.get<ApiResponse<Result>>(`/shared/results/${shareId}`, {
+    const response = await apiClient.get<Result>(`/shared/results/${shareId}`, {
       params: password ? { password } : {}
     })
-    return response.data.data
+    return response.data
   }
 }

@@ -73,7 +73,7 @@ const Scripts: React.FC = () => {
         page: state.current,
         limit: state.pageSize,
         search: state.searchText || undefined,
-        status: state.statusFilter !== 'all' ? state.statusFilter : undefined,
+        isActive: state.statusFilter === 'active' ? true : state.statusFilter === 'inactive' ? false : undefined,
         type: state.typeFilter !== 'all' ? state.typeFilter : undefined
       }
       
@@ -181,22 +181,22 @@ const Scripts: React.FC = () => {
 
   const getTypeColor = (type: ScriptType) => {
     switch (type) {
-      case 'load': return 'blue'
-      case 'stress': return 'red'
-      case 'spike': return 'orange'
-      case 'volume': return 'purple'
-      case 'soak': return 'green'
+      case 'load_test': return 'blue'
+      case 'stress_test': return 'red'
+      case 'spike_test': return 'orange'
+      case 'volume_test': return 'purple'
+      case 'endurance_test': return 'green'
       default: return 'default'
     }
   }
 
   const getTypeText = (type: ScriptType) => {
     switch (type) {
-      case 'load': return '负载测试'
-      case 'stress': return '压力测试'
-      case 'spike': return '峰值测试'
-      case 'volume': return '容量测试'
-      case 'soak': return '浸泡测试'
+      case 'load_test': return '负载测试'
+      case 'stress_test': return '压力测试'
+      case 'spike_test': return '峰值测试'
+      case 'volume_test': return '容量测试'
+      case 'endurance_test': return '耐久测试'
       default: return type
     }
   }
@@ -225,11 +225,12 @@ const Scripts: React.FC = () => {
     },
     {
       title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: ScriptStatus) => (
-        <Tag color={getStatusColor(status)}>{getStatusText(status)}</Tag>
-      )
+      dataIndex: 'isActive',
+      key: 'isActive',
+      render: (isActive: boolean) => {
+        const status: ScriptStatus = isActive ? 'active' : 'inactive'
+        return <Tag color={getStatusColor(status)}>{getStatusText(status)}</Tag>
+      }
     },
     {
       title: '文件大小',
@@ -265,7 +266,7 @@ const Scripts: React.FC = () => {
             <Button
               type="text"
               icon={<PlayCircleOutlined />}
-              onClick={() => navigate(`/tasks/create?scriptId=${record.id}`)}
+              onClick={() => navigate(`/tasks/new?scriptId=${record.id}`)}
             />
           </Tooltip>
           <Tooltip title="复制">
@@ -356,11 +357,11 @@ const Scripts: React.FC = () => {
               onChange={handleTypeFilter}
             >
               <Option value="all">全部类型</Option>
-              <Option value="load">负载测试</Option>
-              <Option value="stress">压力测试</Option>
-              <Option value="spike">峰值测试</Option>
-              <Option value="volume">容量测试</Option>
-              <Option value="soak">浸泡测试</Option>
+              <Option value="load_test">负载测试</Option>
+              <Option value="stress_test">压力测试</Option>
+              <Option value="spike_test">峰值测试</Option>
+              <Option value="volume_test">容量测试</Option>
+              <Option value="endurance_test">耐久测试</Option>
             </Select>
           </Col>
         </Row>

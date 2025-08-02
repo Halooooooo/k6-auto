@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { authService } from '../../services/authService'
 import { User, LoginDto, RegisterDto } from '../../types/auth'
+import { STORAGE_KEYS } from '../../constants'
 
 interface AuthState {
   user: User | null
@@ -12,8 +13,8 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: null,
-  token: localStorage.getItem('token'),
-  isAuthenticated: !!localStorage.getItem('token'),
+  token: localStorage.getItem(STORAGE_KEYS.TOKEN),
+  isAuthenticated: !!localStorage.getItem(STORAGE_KEYS.TOKEN),
   loading: false,
   error: null,
 }
@@ -24,7 +25,7 @@ export const login = createAsyncThunk(
   async (credentials: LoginDto, { rejectWithValue }) => {
     try {
       const response = await authService.login(credentials)
-      localStorage.setItem('token', response.token)
+      localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token)
       return response
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || '登录失败')
@@ -89,7 +90,7 @@ const authSlice = createSlice({
       state.token = null
       state.isAuthenticated = false
       state.error = null
-      localStorage.removeItem('token')
+      localStorage.removeItem(STORAGE_KEYS.TOKEN)
     },
     clearError: (state) => {
       state.error = null
@@ -97,7 +98,7 @@ const authSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload
       state.isAuthenticated = true
-      localStorage.setItem('token', action.payload)
+      localStorage.setItem(STORAGE_KEYS.TOKEN, action.payload)
     },
   },
   extraReducers: (builder) => {
@@ -109,8 +110,8 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false
-        state.token = action.payload.token
-        state.user = action.payload.user
+        state.token = action.payload.data.token
+        state.user = action.payload.data.user
         state.isAuthenticated = true
         state.error = null
       })
@@ -149,7 +150,7 @@ const authSlice = createSlice({
           state.user = null
           state.token = null
           state.isAuthenticated = false
-          localStorage.removeItem('token')
+          localStorage.removeItem(STORAGE_KEYS.TOKEN)
         }
       })
       // 获取当前用户信息
@@ -169,7 +170,7 @@ const authSlice = createSlice({
         state.user = null
         state.token = null
         state.isAuthenticated = false
-        localStorage.removeItem('token')
+        localStorage.removeItem(STORAGE_KEYS.TOKEN)
       })
       // 更新用户信息
       .addCase(updateProfile.pending, (state) => {

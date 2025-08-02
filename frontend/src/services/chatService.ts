@@ -12,8 +12,8 @@ class ChatService {
 
   // HTTP API 方法
   async sendMessage(messageData: SendMessageDto): Promise<ChatResponse> {
-    const response = await apiClient.post<ApiResponse<ChatResponse>>('/chat/messages', messageData)
-    return response.data.data
+    const response = await apiClient.post<ChatResponse>('/chat/messages', messageData)
+    return response.data
   }
 
   async getChatHistory(params?: {
@@ -23,8 +23,8 @@ class ChatService {
     startDate?: string
     endDate?: string
   }): Promise<ChatHistory> {
-    const response = await apiClient.get<ApiResponse<ChatHistory>>('/chat/history', { params })
-    return response.data.data
+    const response = await apiClient.get<ChatHistory>('/chat/history', { params })
+    return response.data
   }
 
   async clearChatHistory(sessionId?: string): Promise<void> {
@@ -37,8 +37,8 @@ class ChatService {
     recentErrors?: string[]
     userIntent?: string
   }): Promise<ChatSuggestion[]> {
-    const response = await apiClient.post<ApiResponse<ChatSuggestion[]>>('/chat/suggestions', context)
-    return response.data.data
+    const response = await apiClient.post<ChatSuggestion[]>('/chat/suggestions', context)
+    return response.data
   }
 
   async getSessionInfo(sessionId: string): Promise<{
@@ -49,16 +49,16 @@ class ChatService {
     messageCount: number
     context: Record<string, any>
   }> {
-    const response = await apiClient.get<ApiResponse<any>>(`/chat/sessions/${sessionId}`)
-    return response.data.data
+    const response = await apiClient.get<any>(`/chat/sessions/${sessionId}`)
+    return response.data
   }
 
   async createSession(context?: Record<string, any>): Promise<{
     sessionId: string
     expiresAt: string
   }> {
-    const response = await apiClient.post<ApiResponse<any>>('/chat/sessions', { context })
-    return response.data.data
+    const response = await apiClient.post<any>('/chat/sessions', { context })
+    return response.data
   }
 
   async updateSessionContext(sessionId: string, context: Record<string, any>): Promise<void> {
@@ -277,8 +277,8 @@ class ChatService {
     responseTime: number
     load: number
   }> {
-    const response = await apiClient.get<ApiResponse<any>>('/chat/assistant/status')
-    return response.data.data
+    const response = await apiClient.get<any>('/chat/assistant/status')
+    return response.data
   }
 
   // 获取聊天统计
@@ -294,8 +294,8 @@ class ChatService {
     userSatisfaction: number
     errorRate: number
   }> {
-    const response = await apiClient.get<ApiResponse<any>>('/chat/statistics', { params })
-    return response.data.data
+    const response = await apiClient.get<any>('/chat/statistics', { params })
+    return response.data
   }
 
   // 反馈消息质量

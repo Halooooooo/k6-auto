@@ -33,9 +33,21 @@ export interface ChangePasswordDto {
   confirmPassword: string
 }
 
+export interface ApiResponse<T> {
+  success: boolean
+  data: T
+  message: string
+  timestamp: string
+}
+
 export interface LoginResponse {
-  access_token: string
-  user: User
+  success: boolean
+  data: {
+    user: User
+    token: string
+  }
+  message: string
+  timestamp: string
 }
 
 export interface AuthState {

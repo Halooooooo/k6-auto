@@ -8,7 +8,7 @@ import {
   Select,
   Space,
   Typography,
-  message,
+  App,
   Row,
   Col,
   Switch,
@@ -52,6 +52,7 @@ interface EditorScript {
 }
 
 const ScriptEditor: React.FC = () => {
+  const { message } = App.useApp()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [form] = Form.useForm()
@@ -74,7 +75,7 @@ const ScriptEditor: React.FC = () => {
       // 新建脚本的默认值
       form.setFieldsValue({
         language: 'javascript',
-        type: 'load',
+        type: 'load_test',
         status: true,
         currentVersion: '1.0.0',
         content: getDefaultContent('javascript')
@@ -149,24 +150,28 @@ if __name__ == '__main__':
       setSaving(true)
       const scriptData = {
         ...values,
-        status: values.status ? 'active' : 'inactive',
+        isActive: values.status !== false, // 转换为后端期望的isActive字段
         tags,
         changeLog: changeLog || '更新脚本内容'
       }
+      
+      // 移除前端特有的status字段
+      delete scriptData.status
 
       if (isEdit) {
         await scriptService.updateScript(id!, scriptData)
         message.success('脚本更新成功')
         setChangeLog('')
-        // 重新获取脚本数据以更新版本信息
-        fetchScript()
+        // 更新成功后跳转到脚本管理页面
+        navigate('/scripts')
       } else {
-        const response = await scriptService.createScript(scriptData)
+        await scriptService.createScript(scriptData)
         message.success('脚本创建成功')
-        navigate(`/scripts/${response.id}`)
+        navigate('/scripts')
       }
-    } catch (error) {
-      message.error(isEdit ? '脚本更新失败' : '脚本创建失败')
+    } catch (error: any) {
+      const errorMessage = error.message || (isEdit ? '脚本更新失败' : '脚本创建失败')
+      message.error(errorMessage)
     } finally {
       setSaving(false)
     }
@@ -177,9 +182,12 @@ if __name__ == '__main__':
       const values = await form.validateFields()
       const scriptData = {
         ...values,
-        status: values.status ? 'active' : 'inactive',
+        isActive: values.status !== false,
         tags
       }
+      
+      // 移除前端特有的status字段
+      delete scriptData.status
       
       message.loading('正在测试脚本...', 0)
       await scriptService.testScript(scriptData)
@@ -299,7 +307,6 @@ if __name__ == '__main__':
           form={form}
           layout="vertical"
           onFinish={handleSave}
-          loading={loading}
         >
           <Row gutter={24}>
             <Col span={16}>
@@ -361,13 +368,11 @@ if __name__ == '__main__':
                   rules={[{ required: true, message: '请选择脚本类型' }]}
                 >
                   <Select placeholder="选择脚本类型">
-                    <Option value="load">负载测试</Option>
-                    <Option value="stress">压力测试</Option>
-                    <Option value="spike">峰值测试</Option>
-                    <Option value="volume">容量测试</Option>
-                    <Option value="endurance">持久性测试</Option>
-                    <Option value="api">API测试</Option>
-                    <Option value="browser">浏览器测试</Option>
+                    <Option value="load_test">负载测试</Option>
+                    <Option value="stress_test">压力测试</Option>
+                    <Option value="spike_test">峰值测试</Option>
+                    <Option value="volume_test">容量测试</Option>
+                    <Option value="endurance_test">持久性测试</Option>
                   </Select>
                 </Form.Item>
                 
@@ -445,24 +450,17 @@ if __name__ == '__main__':
         </Form>
       </div>
       
-      {/* 版本历史模态框 */}
-      <Modal
-        title="版本历史"
-        open={versionHistoryVisible}
-        onCancel={handleVersionHistoryClose}
-        footer={null}
-        width={1000}
-        destroyOnClose
-      >
-        {script?.id && (
-          <VersionHistory
-            scriptId={script.id}
-            onRestore={handleVersionRestore}
-            onSetActive={handleVersionSetActive}
-            onDelete={handleVersionDelete}
-          />
-        )}
-      </Modal>
+      {/* 版本历史组件 */}
+      {script?.id && (
+        <VersionHistory
+          visible={versionHistoryVisible}
+          onClose={handleVersionHistoryClose}
+          scriptId={script.id}
+          onVersionRestore={() => {
+            fetchScript(); // 重新获取脚本数据
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -6,8 +6,8 @@ import { apiClient } from './apiClient'
 export const authService = {
   // 用户登录
   async login(credentials: LoginDto): Promise<LoginResponse> {
-    const response = await apiClient.post<ApiResponse<LoginResponse>>('/auth/login', credentials)
-    return response.data.data
+    const response = await apiClient.post<LoginResponse>('/auth/login', credentials)
+    return response.data
   },
 
   // 用户注册
@@ -35,8 +35,8 @@ export const authService = {
 
   // 刷新Token
   async refreshToken(): Promise<LoginResponse> {
-    const response = await apiClient.post<ApiResponse<LoginResponse>>('/auth/refresh')
-    return response.data.data
+    const response = await apiClient.post<LoginResponse>('/auth/refresh')
+    return response.data
   },
 
   // 登出

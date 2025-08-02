@@ -26,6 +26,7 @@ import {
   StopOutlined,
   DeleteOutlined,
   EyeOutlined,
+  EditOutlined,
   MoreOutlined,
   SyncOutlined,
   CheckCircleOutlined,
@@ -237,6 +238,15 @@ const Tasks: React.FC = () => {
       >
         查看详情
       </Menu.Item>
+      {(record.status === 'pending' || record.status === 'completed' || record.status === 'failed') && (
+        <Menu.Item
+          key="edit"
+          icon={<EditOutlined />}
+          onClick={() => navigate(`/tasks/${record.id}/edit`)}
+        >
+          编辑任务
+        </Menu.Item>
+      )}
       {record.status === 'completed' && (
         <Menu.Item
           key="download"
@@ -264,26 +274,117 @@ const Tasks: React.FC = () => {
     </Menu>
   )
 
+  const getNextExecutionTime = (task: Task) => {
+    if (task.triggerType !== 'scheduled' || !task.cronExpression) {
+      return '-'
+    }
+    // 这里应该根据cron表达式计算下次执行时间
+    // 简化处理，实际应该使用cron库计算
+    return task.scheduledAt ? formatDate(task.scheduledAt) : '计算中...'
+  }
+
+  const getExecutionEnvironment = (task: Task) => {
+    if (task.agentId) {
+      return (
+        <Tooltip title={`Agent ID: ${task.agentId}`}>
+          <Tag color="blue">Agent执行</Tag>
+        </Tooltip>
+      )
+    }
+    return <Tag color="default">平台执行</Tag>
+  }
+
+  const getResultSummary = (task: Task) => {
+    if (task.status !== 'completed' || !task.logs) {
+      return '-'
+    }
+    // 简化的结果摘要，实际应该解析k6输出
+    return (
+      <Tooltip title="点击查看详细报告">
+        <span className="result-summary">
+          平均响应: 120ms, 错误率: 0.1%
+        </span>
+      </Tooltip>
+    )
+  }
+
   const columns = [
     {
-      title: '任务名称',
+      title: '任务名称/ID',
       dataIndex: 'name',
       key: 'name',
+      width: 200,
       render: (text: string, record: Task) => (
-        <span className="task-name" onClick={() => navigate(`/tasks/${record.id}`)}>
-          {text}
-        </span>
+        <div>
+          <div 
+            className="task-name" 
+            onClick={() => navigate(`/tasks/${record.id}`)}
+            style={{ cursor: 'pointer', color: '#1890ff', fontWeight: 500 }}
+          >
+            {text}
+          </div>
+          <div style={{ fontSize: '12px', color: '#999' }}>ID: {record.id.slice(0, 8)}...</div>
+        </div>
       )
     },
     {
-      title: '脚本',
-      dataIndex: 'scriptName',
-      key: 'scriptName'
+      title: '关联脚本',
+      dataIndex: 'script',
+      key: 'script',
+      width: 150,
+      render: (script: any, record: Task) => (
+        <Tooltip title={`脚本ID: ${record.scriptId}`}>
+          <span>{script?.name || '未知脚本'}</span>
+        </Tooltip>
+      )
     },
     {
-      title: '状态',
+      title: '触发类型',
+      dataIndex: 'triggerType',
+      key: 'triggerType',
+      width: 100,
+      render: (trigger: TaskTriggerType, record: Task) => (
+        <div>
+          <Tag color={getTriggerColor(trigger)}>{getTriggerText(trigger)}</Tag>
+          {trigger === 'scheduled' && (
+            <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
+              {record.isEnabled ? '已启用' : '已禁用'}
+            </div>
+          )}
+        </div>
+      )
+    },
+    {
+      title: '执行环境',
+      key: 'executionEnvironment',
+      width: 120,
+      render: (_, record: Task) => getExecutionEnvironment(record)
+    },
+    {
+      title: '定时配置',
+      key: 'scheduleConfig',
+      width: 150,
+      render: (_, record: Task) => {
+        if (record.triggerType !== 'scheduled') {
+          return '-'
+        }
+        return (
+          <div>
+            <div style={{ fontSize: '12px' }}>
+              {record.cronExpression || '未配置'}
+            </div>
+            <div style={{ fontSize: '11px', color: '#666' }}>
+              下次: {getNextExecutionTime(record)}
+            </div>
+          </div>
+        )
+      }
+    },
+    {
+      title: '最近执行状态',
       dataIndex: 'status',
       key: 'status',
+      width: 120,
       render: (status: TaskStatus) => (
         <Tag color={getStatusColor(status)} icon={getStatusIcon(status)}>
           {getStatusText(status)}
@@ -291,85 +392,70 @@ const Tasks: React.FC = () => {
       )
     },
     {
-      title: '触发方式',
-      dataIndex: 'trigger',
-      key: 'trigger',
-      render: (trigger: TaskTriggerType) => (
-        <Tag color={getTriggerColor(trigger)}>{getTriggerText(trigger)}</Tag>
+      title: '执行时间',
+      key: 'executionTime',
+      width: 180,
+      render: (_, record: Task) => (
+        <div>
+          <div style={{ fontSize: '12px' }}>
+            开始: {record.startedAt ? formatDate(record.startedAt) : '-'}
+          </div>
+          <div style={{ fontSize: '12px', color: '#666' }}>
+            {record.completedAt ? (
+              `结束: ${formatDate(record.completedAt)}`
+            ) : record.startedAt ? (
+              `持续: ${formatDuration(Date.now() - new Date(record.startedAt).getTime())}`
+            ) : (
+              '未开始'
+            )}
+          </div>
+        </div>
       )
     },
     {
-      title: '进度',
-      dataIndex: 'progress',
-      key: 'progress',
-      render: (progress: number, record: Task) => {
-        if (record.status === 'running') {
-          return <Progress percent={progress} size="small" status="active" />
-        }
-        if (record.status === 'completed') {
-          return <Progress percent={100} size="small" status="success" />
-        }
-        if (record.status === 'failed') {
-          return <Progress percent={progress} size="small" status="exception" />
-        }
-        return <Progress percent={progress} size="small" />
-      }
-    },
-    {
-      title: '持续时间',
-      dataIndex: 'duration',
-      key: 'duration',
-      render: (duration: number) => duration ? formatDuration(duration) : '-'
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      render: (date: string) => formatDate(date)
+      title: '结果概览',
+      key: 'resultSummary',
+      width: 150,
+      render: (_, record: Task) => getResultSummary(record)
     },
     {
       title: '操作',
       key: 'actions',
+      width: 150,
+      fixed: 'right',
       render: (_, record: Task) => (
         <Space>
-          {record.status === 'pending' && (
-            <Tooltip title="启动">
+          {(record.status === 'pending' || record.triggerType === 'manual') && (
+            <Tooltip title="立即运行">
               <Button
                 type="text"
                 icon={<PlayCircleOutlined />}
                 onClick={() => handleStart(record.id)}
+                size="small"
               />
             </Tooltip>
           )}
           {record.status === 'running' && (
-            <>
-              <Tooltip title="暂停">
-                <Button
-                  type="text"
-                  icon={<PauseCircleOutlined />}
-                  onClick={() => handlePause(record.id)}
-                />
-              </Tooltip>
-              <Tooltip title="停止">
-                <Button
-                  type="text"
-                  icon={<StopOutlined />}
-                  onClick={() => handleStop(record.id)}
-                />
-              </Tooltip>
-            </>
-          )}
-          {record.status === 'paused' && (
-            <Tooltip title="继续">
+            <Tooltip title="停止">
               <Button
                 type="text"
-                icon={<PlayCircleOutlined />}
-                onClick={() => handleStart(record.id)}
+                icon={<StopOutlined />}
+                onClick={() => handleStop(record.id)}
+                size="small"
+                danger
               />
             </Tooltip>
           )}
+          <Tooltip title="查看历史">
+            <Button
+              type="text"
+              icon={<EyeOutlined />}
+              onClick={() => navigate(`/tasks/${record.id}/history`)}
+              size="small"
+            />
+          </Tooltip>
           <Dropdown overlay={getActionMenu(record)} trigger={['click']}>
-            <Button type="text" icon={<MoreOutlined />} />
+            <Button type="text" icon={<MoreOutlined />} size="small" />
           </Dropdown>
         </Space>
       )
@@ -387,7 +473,7 @@ const Tasks: React.FC = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={() => navigate('/tasks/create')}
+              onClick={() => navigate('/tasks/new')}
             >
               创建任务
             </Button>

@@ -1,0 +1,53 @@
+# K6 Agent 配置文件
+
+# 服务器配置
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+# 后端API配置
+backend:
+  url: "http://127.0.0.1:3001"
+  timeout: 30s
+  retry_count: 3
+
+# Agent配置
+agent:
+  registration_token: "default-token"  # 注册令牌
+  heartbeat_interval: 30               # 心跳间隔（秒）
+  poll_interval: 5                     # 任务轮询间隔（秒）
+  tags:                                # Agent标签
+    env: "development"
+    region: "local"
+    type: "standard"
+
+# K6配置
+k6:
+  binary: "k6"  # k6可执行文件路径
+  max_concurrent_tasks: 10  # 最大并发任务数
+  default_timeout: "30m"    # 默认超时时间
+
+# 日志配置
+log:
+  level: "info"  # debug, info, warn, error
+  format: "json" # json, text
+  file: ""       # 日志文件路径，空表示输出到控制台
+
+# 资源限制
+resources:
+  max_memory: "1GB"     # 最大内存使用
+  max_cpu_percent: 80   # 最大CPU使用百分比
+  cleanup_interval: "1h" # 清理间隔
+
+# 安全配置
+security:
+  enable_auth: false    # 是否启用认证
+  api_key: ""          # API密钥
+  allowed_origins:      # 允许的跨域来源
+    - "*"
+
+# 监控配置
+monitoring:
+  enable_metrics: true  # 是否启用指标收集
+  metrics_port: 9090   # 指标端口
+  health_check_interval: "30s"

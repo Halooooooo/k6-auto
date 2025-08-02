@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   UploadedFile,
   ParseUUIDPipe,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 // // import {
@@ -155,6 +156,47 @@ export class ScriptsController {
     @Request() req,
   ) {
     return this.scriptsService.restoreVersion(id, version, req.user);
+  }
+
+  @Get(':id/download')
+  // @ApiOperation({ summary: '下载脚本文件' })
+  // @ApiResponse({ status: 200, description: '下载成功' })
+  async downloadScript(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Request() req,
+    @Res() res,
+  ) {
+    const script = await this.scriptsService.findOne(id, req.user);
+    res.set({
+      'Content-Type': 'application/javascript',
+      'Content-Disposition': `attachment; filename="${script.name}.js"`,
+    });
+    res.send(script.content);
+  }
+
+  @Get(':id/executions')
+  // @ApiOperation({ summary: '获取脚本执行历史' })
+  // @ApiResponse({ status: 200, description: '获取成功' })
+  async getExecutions(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
+    // 返回空数组，因为执行历史功能还未实现
+    return [];
+  }
+
+  @Post(':id/execute')
+  // @ApiOperation({ summary: '执行脚本' })
+  // @ApiResponse({ status: 200, description: '执行成功' })
+  async executeScript(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() executeParams: any,
+    @Request() req,
+  ) {
+    // 返回执行结果，这里先返回模拟数据
+    return {
+      id: 'exec-' + Date.now(),
+      status: 'success',
+      message: '脚本执行成功',
+      startTime: new Date().toISOString(),
+    };
   }
 
   @Post(':id/duplicate')

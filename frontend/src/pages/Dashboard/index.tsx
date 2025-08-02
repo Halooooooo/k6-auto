@@ -119,8 +119,8 @@ const Dashboard: React.FC = () => {
          localStorage.removeItem(STORAGE_KEYS.TOKEN)
          localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN)
          localStorage.removeItem(STORAGE_KEYS.USER)
-         // 重新加载页面，让路由重定向到登录页
-         window.location.reload()
+         // 通过自定义事件通知应用处理登出
+         window.dispatchEvent(new CustomEvent('auth:logout'))
        }
     } finally {
       setLoading(false)
